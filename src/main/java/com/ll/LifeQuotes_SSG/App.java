@@ -1,37 +1,15 @@
 package com.ll.LifeQuotes_SSG;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
-    public void run() throws IOException {
+    public void run() {
         System.out.println("== 명언 SSG Commend==");
         System.out.println("1. 등록 2. 목록 3. 수정 4. 삭제 ");
         Scanner sc = new Scanner(System.in);
         System.out.println("\n");
-        String filePath = "D:/MyWork/Test.txt"; //파일생성
 
-        File file = new File(filePath); // File객체 생성
-        if(!file.exists()){ // 파일이 존재하지 않으면
-            file.createNewFile(); // 신규생성
-        }
-
-        // BufferedWriter 생성
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-
-        // 파일에 쓰기
-        writer.write("하이루!");
-        writer.newLine();
-        writer.write("반가워!");
-        writer.newLine();
-
-        // 버퍼 및 스트림 뒷정리
-        writer.flush(); // 버퍼의 남은 데이터를 모두 쓰기
-        writer.close(); // 스트림 종료
-
+        int lastId = 0; //마지막글번호 인덱스
         outer:
         while (true) {
             System.out.printf("명령) ");
@@ -42,7 +20,10 @@ public class App {
                     String content = sc.nextLine().trim();
                     System.out.printf("작가) ");
                     String author = sc.nextLine().trim();
-                    System.out.println("1번 명언이 등록되었습니다.");
+                    int id = ++lastId;
+                    WiseSaying wiseSaying = new WiseSaying(id, content, author);
+                    System.out.println(wiseSaying);
+                    System.out.printf("%d번 명언이 등록되었습니다.", id);
             }
 
             switch (cmd) {
@@ -55,4 +36,6 @@ public class App {
     }
 }
 //파일 생성 조회 수정 삭제.
-//번호: id, 명언: content 작가: name
+//번호: id, 명언: content 작가: name의 클래스 생성하기
+//run()지역에서 글번호를 기억할 lastId 변수 생성
+//
