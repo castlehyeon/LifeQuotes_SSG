@@ -15,13 +15,17 @@ public class AppTest {
     }
     @Test
     public void 문자열을_스캐너의_입력으로_설정() {
+    //TDD로 진행할 때 일일이 입력하기 부담스럽다. 이를 스캐너로 해결
         String input = """
                 등록
                 명언1
                 작가1
                 """.stripIndent();
+        //.stripIndent()는 """ """사이의 공백을 없애준다.
+
         InputStream in = new ByteArrayInputStream(input.getBytes());
         Scanner sc = new Scanner(in);
+        //원래는 ()안에 System.in이 들어갔으나 개발자가 따로 입력한 값 참조변수 in을 넣어준다.
         String cmd = sc.nextLine().trim();
         String content = sc.nextLine().trim();
         String author = sc.nextLine().trim();
