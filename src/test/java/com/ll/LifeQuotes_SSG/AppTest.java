@@ -9,6 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
     @Test
+    public void Rq__getIntParam() {
+        //Rq클래스에게 리퀘스트요청처리를 위임.
+        Rq rq = new Rq("삭제?id=1");
+        //rq는 내부적으로 파라미터인 "삭제?id=1"을 가지고 있다.
+        int id = rq.getIntParam("id", 0);
+
+        assertEquals(1,id);
+    }
+    @Test
     public void 테스트_실험() {
         int rs = 10 + 20;
         assertEquals(30, rs);

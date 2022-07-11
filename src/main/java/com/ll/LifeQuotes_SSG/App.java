@@ -11,7 +11,10 @@ public class App {
 
         // 가장 마지막 명언글의 번호
         List<WiseSaying> wiseSayings = new ArrayList<>();
+        //
         int wiseSayingLastId = 0;
+        //scope에 따라 날아가지 않는 변수 선언
+
 
         outer:
         while (true) {
@@ -26,6 +29,7 @@ public class App {
                     int id = ++wiseSayingLastId; // 명언 글 번호 증가
 
                     WiseSaying wiseSaying = new WiseSaying(id, content, author);
+                    //명언을 얼마나, 몇개나 저장할지 모른다.
                     System.out.println(wiseSaying);
                     wiseSayings.add(wiseSaying);
 
@@ -34,8 +38,8 @@ public class App {
                 case "목록":
                     System.out.println("번호 / 작가 / 명언");
                     System.out.println("-------------------");
-                    for (int i = wiseSayings.size() - 1; i >= 0; i--) {
-                        WiseSaying wiseSaying_ = wiseSayings.get(i);
+                    for (int i = wiseSayings.size() - 1; i >= 0; i--) { //최신 글부터 내림차순
+                        WiseSaying wiseSaying_ = wiseSayings.get(i); //
                         System.out.printf("%d / %s / %s\n", wiseSaying_.id, wiseSaying_.content, wiseSaying_.author);
                     }
                     break;
