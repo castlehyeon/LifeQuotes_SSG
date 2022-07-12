@@ -64,15 +64,9 @@ public class App {
         }
 
         //URL에 입력된 id에 해당하는 명언객체 찾기
-        WiseSaying foundwiseSaying = null; //지우려는 객체
+        WiseSaying foundwiseSaying = finById(paramId); //지우려는 객체
+        //id로 검색하는 것은 따로 빼놓을 것임.
 
-        for ( WiseSaying wiseSaying :  wiseSayings){ // 들어있는 값을 전부 비교.
-            if (wiseSaying.id == paramId){
-                //값을 먼저 향상된 for문에 넣어서 비교하고,
-                foundwiseSaying = wiseSaying;
-                //비교한 값을 for문 밖의 wiseSaying값에 넣음.
-            }
-        }//만약 for문에서 못찾는다면.
 
         if( foundwiseSaying == null ) {
             System.out.printf("%d번 명언은 존재하지 않습니다.\n", paramId);
@@ -83,6 +77,17 @@ public class App {
         wiseSayings.remove(foundwiseSaying);
 
         System.out.printf("%d번 명언이 삭제되었습니다.\n", paramId);
+    }
+
+    private WiseSaying finById(int paramId) {
+        for ( WiseSaying wiseSaying :  wiseSayings){ // 들어있는 값을 전부 비교.
+            if (wiseSaying.id == paramId){
+                //값을 먼저 향상된 for문에 넣어서 비교하고,
+                return wiseSaying;
+                //비교한 값을 for문 밖의 wiseSaying값에 넣음.
+            }
+        }//만약 for문에서 못찾는다면.
+        return null;
     }
 
     private void write(Rq rq) {
