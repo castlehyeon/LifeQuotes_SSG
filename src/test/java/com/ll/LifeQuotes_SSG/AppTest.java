@@ -13,7 +13,7 @@ public class AppTest {
         //Rq클래스에게 리퀘스트요청처리를 위임.
         Rq rq = new Rq("삭제?id=1");
         //rq는 내부적으로 파라미터인 "삭제?id=1"을 가지고 있다.
-        String path = rq.getPath("id", 0);
+        String path = rq.getPath();
 
         assertEquals("삭제",path);
     }

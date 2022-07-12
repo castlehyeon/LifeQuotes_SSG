@@ -42,7 +42,7 @@ public class Rq {
         return defaultValue;
     }
 
-    public String getPath(String id, int i) {
+    public String getPath() {
         return path;
     }
 }
