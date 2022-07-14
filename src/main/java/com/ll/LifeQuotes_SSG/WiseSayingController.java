@@ -37,19 +37,24 @@ public class WiseSayingController {
         //기존내용 출력
         System.out.printf("명언(기존) : %s\n", foundwiseSaying.content);
         System.out.printf("명언 : ");
-        foundwiseSaying.content = sc.nextLine();
+        String content = sc.nextLine();
         System.out.printf("작가(기존) : %s\n", foundwiseSaying.author);
         System.out.printf("명언 : ");
-        foundwiseSaying.author = sc.nextLine();
+        String author = sc.nextLine();
 
+        wiseSayingRepository.modify(paramId, content, author);
+        //Controller에서는 내용을 받기만 하고 데이터 처리에 관련된 건 Repo로 보냄.
         System.out.printf("%d번 명언이 수정되었습니다.\n", paramId);
     }
 
     public void list(Rq rq) {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("-------------------");
-        for (int i = wiseSayingRepository.wiseSayings.size() - 1; i >= 0; i--) { //최신 글부터 내림차순
-            WiseSaying wiseSaying_ = wiseSayingRepository.wiseSayings.get(i); //
+
+        List<WiseSaying> wiseSayings = wiseSayingRepository.findAll(); //'부탁하기'
+
+        for (int i = wiseSayings.size() - 1; i >= 0; i--) { //최신 글부터 내림차순
+            WiseSaying wiseSaying_ = wiseSayings.get(i); //
             System.out.printf("%d / %s / %s\n", wiseSaying_.id, wiseSaying_.content, wiseSaying_.author);
         }
     }
@@ -75,7 +80,7 @@ public class WiseSayingController {
         }
 
         //입력된 id에 해당하는 명언객체를 리스트에서 삭제
-        wiseSayingRepository.wiseSayings.remove(foundwiseSaying);
+        wiseSayingRepository.remove(paramId);
 
         System.out.printf("%d번 명언이 삭제되었습니다.\n", paramId);
     }
@@ -84,16 +89,14 @@ public class WiseSayingController {
         String content = sc.nextLine().trim();
         System.out.printf("작가 : ");
         String author = sc.nextLine().trim();
-        int id = ++wiseSayingRepository.wiseSayingLastId; // 명언 글 번호 증가
 
-        WiseSaying wiseSaying = new WiseSaying(id, content, author);
-        //명언을 얼마나, 몇개나 저장할지 모른다.
-        System.out.println(wiseSaying);
-        wiseSayingRepository.wiseSayings.add(wiseSaying);
+        WiseSaying wiseSaying = wiseSayingRepository.write(content, author);//repo에서 처리할 수 있게.
 
-        System.out.printf("%d번 명언이 등록되었습니다.\n", id);
+        System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSaying.id);
     }
 }
 //1. WiseSaying과 관련한 기능이 모두 모여있다. -> 분리 필요.
 //2. sc 해결하기 -> Controller가 sc를 갖고 있게 한다.
 
+
+//1. Controller는 데이터를 받기만 하고, 데이터 처리 및 관리는 Repo에게 넘긴다.

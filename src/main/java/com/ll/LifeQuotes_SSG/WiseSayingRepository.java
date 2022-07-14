@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 //레포지토리는 데이터를 저장, 관리하는 담당이다.
 public class WiseSayingRepository {
-    public List<WiseSaying> wiseSayings;
+    private List<WiseSaying> wiseSayings;
     // 가장 마지막 명언글의 번호
     //scope에 따라 날아가지 않는 변수 선언
-    public int wiseSayingLastId;
+    private int wiseSayingLastId;
     private Scanner sc;
     WiseSayingRepository() {//생성자에서 처리해줌.
         wiseSayings = new ArrayList<>();//ArrayList
@@ -109,6 +109,29 @@ public class WiseSayingRepository {
             }
         }//만약 for문에서 못찾는다면.
         return null;
+    }
+
+    public List<WiseSaying> findAll() {
+        return wiseSayings;
+    }
+
+    public WiseSaying write(String content, String author) {
+        int id = ++wiseSayingLastId;
+        WiseSaying wiseSaying = new WiseSaying(id, content, author);
+        wiseSayings.add(wiseSaying);
+
+        return wiseSaying;
+    }
+
+    public void remove(int paramId) {
+        WiseSaying foundwiseSaying = findById(paramId);
+        wiseSayings.remove(foundwiseSaying);
+    }
+
+    public void modify(int paramId, String content, String author) {
+        WiseSaying foundwiseSaying = findById(paramId);
+        foundwiseSaying.content = content;
+        foundwiseSaying.author = author;
     }
 }
 //1. WiseSaying과 관련한 기능이 모두 모여있다. -> 분리 필요.
