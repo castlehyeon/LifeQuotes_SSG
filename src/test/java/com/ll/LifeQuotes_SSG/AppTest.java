@@ -9,6 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
     @Test
+    void 파일_내용가져오기(){
+        Util.mkdir("test_data");
+        Util.saveToFile("test_data/1.json", "내용");//https://www.baeldung.com/java-write-to-file
+
+        String body = Util.getFromFile("test_data/1.json");
+        System.out.println(body);
+    }
+    @Test
+    void 파일에_내용쓰기(){
+        Util.mkdir("test_data");
+        Util.saveToFile("test_data/1.json", "내용");//https://www.baeldung.com/java-write-to-file
+    }
+    @Test
     public void Rq__getPath() {
         //Rq클래스에게 리퀘스트요청처리를 위임.
         Rq rq = new Rq("삭제?id=1");
