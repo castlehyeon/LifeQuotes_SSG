@@ -13,13 +13,16 @@ public class AppTest {
         Util.mkdir("test_data");
         Util.saveToFile("test_data/1.json", "내용");//https://www.baeldung.com/java-write-to-file
 
-        String body = Util.getFromFile("test_data/1.json");
-        System.out.println(body);
+        String body = Util.readFromFile("test_data/1.json");
+//        System.out.println(body);
+        assertEquals("내용", body);
     }
     @Test
     void 파일에_내용쓰기(){
         Util.mkdir("test_data");
         Util.saveToFile("test_data/1.json", "내용");//https://www.baeldung.com/java-write-to-file
+
+
     }
     @Test
     public void Rq__getPath() {

@@ -29,11 +29,11 @@ public class Util {
         dir.mkdir();
     }
 
-    public static String getFromFile(String path) {
+    public static String readFromFile(String path) {
         try (RandomAccessFile reader = new RandomAccessFile(path, "r")){
-            String body = reader.readLine();
+            String line = reader.readLine();
+            return new String(line.getBytes("iso-8859-1"), "utf-8");
             //reader.close();
-            return body;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
