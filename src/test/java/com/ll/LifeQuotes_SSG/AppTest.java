@@ -9,6 +9,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
     @Test
+    void 파일_객체저장(){
+        Util.mkdir("test_data");
+        WiseSaying wiseSaying = new WiseSaying(1, "aaabbbcccddd", "abc");//객체 생성
+        //객체를 json으로 변환해서 저장
+
+        Util.saveToFile("test_data/1.json", wiseSaying.toJson());//https://www.baeldung.com/java-write-to-file
+
+        String body = Util.readFromFile("test_data/1.json");
+//        System.out.println(body);
+        assertEquals(wiseSaying.toJson(), body);
+    }
+    @Test
     void 파일_내용가져오기(){
         Util.mkdir("test_data");
         Util.saveToFile("test_data/1.json", "내용");//https://www.baeldung.com/java-write-to-file
@@ -20,9 +32,9 @@ public class AppTest {
     @Test
     void 파일에_내용쓰기(){
         Util.mkdir("test_data");
-        Util.saveToFile("test_data/1.json", "내용");//https://www.baeldung.com/java-write-to-file
-
-
+        Util.saveToFile("test_data/1.json", "내용\n내용");//https://www.baeldung.com/java-write-to-file
+        String rs = Util.readFromFile("test_data/1.json");
+        assertEquals("내용\n내용", rs);
     }
     @Test
     public void Rq__getPath() {
